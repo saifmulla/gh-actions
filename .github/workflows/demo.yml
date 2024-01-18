@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      print_tags:
+        description: 'run it?'
+        required: true
+        type: boolean
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
