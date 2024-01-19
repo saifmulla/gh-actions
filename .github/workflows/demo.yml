@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: Dispatch Trigger
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: 
   workflow_dispatch:
@@ -6,17 +6,17 @@ on:
       logLevel:
         description: 'Log level'
         required: false
-        default: 'info'
+        default: 'INFO'
         type: choice
         options:
-        - info
-        - warning
-        - debug
-      tags:
-        description: 'Tags'
+        - INFO
+        - WARNING
+        - DEBUG
+      TEARDOWN:
+        description: 'Disable/enable teardown'
         required: false
         type: boolean
-        default: true
+        default: false
       environment:
         description: 'Environment to run tests against'
         required: true
@@ -47,10 +47,10 @@ jobs:
       - name: Dispatch Context
         run: |
             echo "Log Level: $LEVEL"
-            echo "Tags: $TAGS"
+            echo "DISABLE_TEARDOWN: $DISABLE_TEARDOWN"
             echo "Environment: $ENVIRONMENT"
         env: 
-          LEVEL: ${{ inputs.logLevel }}
-          TAGS: ${{ inputs.tags }}
+          LOG_LEVEL: ${{ inputs.logLevel }}
+          DISABLE_TEARDOWN: ${{ inputs.TEARDOWN }}
           ENVIRONMENT: ${{ inputs.environment }}
         
