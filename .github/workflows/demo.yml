@@ -39,16 +39,13 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-  Explore-Dispath-Workflows:
-    runs-on: ubuntu-latest
-    steps:
       - name: Check Dispatch
-        uses: actions/checkout@v4
-      - run: echo "Log Level: $LEVEL"
-      - run: echo "Tags: $TAGS"
-      - run: echo "Environment: $ENVIRONMENT"
-      - env: 
-        LEVEL: ${{ inputs.logLevel }}
-        TAGS: ${{ inputs.tags }}
-        ENVIRONMENT: ${{ inputs.environment }}
+        run: |
+          echo "Log Level: $LEVEL"
+          echo "Tags: $TAGS"
+          echo "Environment: $ENVIRONMENT"
+        env: 
+          LEVEL: ${{ inputs.logLevel }}
+          TAGS: ${{ inputs.tags }}
+          ENVIRONMENT: ${{ inputs.environment }}
         
