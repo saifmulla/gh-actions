@@ -2,7 +2,6 @@ name: Dispatch Trigger
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: 
   workflow_dispatch:
-    branches: [dev]
     inputs:
       LogLevel:
         description: 'Log level'
