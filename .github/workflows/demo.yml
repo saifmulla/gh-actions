@@ -39,10 +39,11 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-      - run: |
-          echo "Log Level: $LEVEL"
-          echo "Tags: $TAGS"
-          echo "Environment: $ENVIRONMENT"
+      - name: Dispatch Context
+        run: |
+            echo "Log Level: $LEVEL"
+            echo "Tags: $TAGS"
+            echo "Environment: $ENVIRONMENT"
         env: 
           LEVEL: ${{ inputs.logLevel }}
           TAGS: ${{ inputs.tags }}
