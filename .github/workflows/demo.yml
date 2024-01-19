@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: 
   workflow_dispatch:
     inputs:
-      logLevel:
+      LogLevel:
         description: 'Log level'
         required: false
         default: 'INFO'
@@ -12,20 +12,27 @@ on:
         - INFO
         - WARNING
         - DEBUG
-      TEARDOWN:
-        description: 'Disable/enable teardown'
+      WorkSpaceSuffix:
+        description: 'AWS Workspace Suffix'
+        required: false
+        type: string
+      NumFeeds:
+        description: 'Number of feeds to run'
+        type: string
+        default: '1'
+      DisableTeardown:
+        description: 'Disable teardown'
         required: false
         type: boolean
-        default: false
-      environment:
+        default: true
+      Environment:
         description: 'Environment to run tests against'
         required: true
         default: testing
         type: choice
         options:
           - staging
-          - testing
-        
+          - testing 
   push:
     branches: 
       - 'dev'
@@ -50,7 +57,9 @@ jobs:
             echo "DISABLE_TEARDOWN: $DISABLE_TEARDOWN"
             echo "Environment: $ENVIRONMENT"
         env: 
-          LOG_LEVEL: ${{ inputs.logLevel }}
-          DISABLE_TEARDOWN: ${{ inputs.TEARDOWN }}
-          ENVIRONMENT: ${{ inputs.environment }}
+          LOG_LEVEL: ${{ inputs.LogLevel }}
+          DISABLE_TEARDOWN: ${{ inputs.DisableTeardown }}
+          WORKSPACE_SUFFIX: ${{ inputs.WorkSpaceSuffix }}
+          NUM_FEEDS: ${{ inputs.NumFeeds }}
+          ENVIRONMENT: ${{ inputs.Environment }}
         
