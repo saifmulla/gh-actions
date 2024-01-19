@@ -54,9 +54,7 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: Extract current branch
         shell: bash
-        run: |
-          echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-          echo "Current branch: ${ branch }"
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_current_branch
 
       - name: Dispatch Context
