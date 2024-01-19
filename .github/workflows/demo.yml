@@ -18,8 +18,12 @@ on:
         type: boolean
       environment:
         description: 'Environment to run tests against'
-        type: string
-        required: false
+        required: true
+        default: testing
+        type: choice
+        options:
+          - staging
+          - testing
         
   push:
     branches: 
