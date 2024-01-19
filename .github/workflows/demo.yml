@@ -2,6 +2,7 @@ name: Dispatch Trigger
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: 
   workflow_dispatch:
+    branches: [dev]
     inputs:
       LogLevel:
         description: 'Log level'
@@ -35,7 +36,7 @@ on:
           - testing 
   push:
     branches: 
-      - 'dev'
+      - dev
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -51,6 +52,13 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Extract current branch
+        shell: bash
+        run: |
+          echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT"
+          echo "Current branch: ${ branch }"
+        id: extract_current_branch
+        
       - name: Dispatch Context
         run: |
             echo "Log Level: $LOG_LEVEL"
@@ -58,6 +66,7 @@ jobs:
             echo "Environment: $ENVIRONMENT"
             echo "WORKSPACE_SUFFIX: ${WORKSPACE_SUFFIX}"
             echo "NUM_FEEDS: ${NUM_FEEDS}"
+            echo "Current branch: ${ steps.extract_current_branch.outputs.branch }"
         env: 
           LOG_LEVEL: ${{ inputs.LogLevel }}
           DISABLE_TEARDOWN: ${{ inputs.DisableTeardown }}
