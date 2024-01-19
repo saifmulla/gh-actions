@@ -24,7 +24,7 @@ on:
         description: 'Disable teardown'
         required: false
         type: boolean
-        default: true
+        default: false
       Environment:
         description: 'Environment to run tests against'
         required: true
@@ -53,9 +53,11 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: Dispatch Context
         run: |
-            echo "Log Level: $LEVEL"
+            echo "Log Level: $LOG_LEVEL"
             echo "DISABLE_TEARDOWN: $DISABLE_TEARDOWN"
             echo "Environment: $ENVIRONMENT"
+            echo "WORKSPACE_SUFFIX: ${WORKSPACE_SUFFIX}"
+            echo "NUM_FEEDS: ${NUM_FEEDS}"
         env: 
           LOG_LEVEL: ${{ inputs.LogLevel }}
           DISABLE_TEARDOWN: ${{ inputs.DisableTeardown }}
