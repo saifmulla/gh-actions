@@ -5,7 +5,7 @@ on:
     inputs:
       logLevel:
         description: 'Log level'
-        required: false
+        required: true
         default: 'info'
         type: choice
         options:
