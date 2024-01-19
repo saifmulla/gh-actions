@@ -55,10 +55,10 @@ jobs:
       - name: Extract current branch
         shell: bash
         run: |
-          echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT"
+          echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
           echo "Current branch: ${ branch }"
         id: extract_current_branch
-        
+
       - name: Dispatch Context
         run: |
             echo "Log Level: $LOG_LEVEL"
