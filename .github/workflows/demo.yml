@@ -12,6 +12,14 @@ on:
         - info
         - warning
         - debug
+      tags:
+        description: 'Test scenario tags'
+        required: false
+        type: boolean
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
   push:
     branches: 
       - 'dev'
@@ -30,3 +38,15 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+  Explore-Dispath-Workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+        echo "Log Level: $LEVEL"
+        echo "Tags: $TAGS"
+        echo "Environment: $ENVIRONMENT"
+        env: 
+          LEVEL: ${{ inputs.logLevel }}
+          TAGS: ${{ inputs.tags }}
+          ENVIRONMENT: ${{ inputs.environment }}
+        
