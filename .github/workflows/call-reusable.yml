@@ -1,0 +1,17 @@
+name: Reuse
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'reusable-wf'
+
+jobs:
+  call_reusable:
+    uses: ./.github/workflows/reusable-demo.yml
+    with:
+        WorkSpaceSuffix: 194
+        LogLevel: 'INFO'
+        NumFeeds: 1
+        DisableTeardown: false
+        Environment: testing
