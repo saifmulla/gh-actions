@@ -58,9 +58,6 @@ on:
                 options:
                 - staging
                 - testing 
-    push:
-        branches: 
-            - reusable-wf
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
