@@ -24,7 +24,7 @@ on:
         description: 'Disable teardown'
         required: false
         type: boolean
-        default: true
+        default: false
       Environment:
         description: 'Environment to run tests against'
         required: true
@@ -35,7 +35,7 @@ on:
           - testing 
   push:
     branches: 
-      - 'dev'
+      - dev
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -51,15 +51,24 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Extract current branch
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_current_branch
+
       - name: Dispatch Context
         run: |
-            echo "Log Level: $LEVEL"
+            echo "Log Level: $LOG_LEVEL"
             echo "DISABLE_TEARDOWN: $DISABLE_TEARDOWN"
             echo "Environment: $ENVIRONMENT"
+            echo "WORKSPACE_SUFFIX: ${WORKSPACE_SUFFIX}"
+            echo "NUM_FEEDS: ${NUM_FEEDS}"
+            echo "Current branch: ${CURRENT_BRANCH}"
         env: 
           LOG_LEVEL: ${{ inputs.LogLevel }}
           DISABLE_TEARDOWN: ${{ inputs.DisableTeardown }}
           WORKSPACE_SUFFIX: ${{ inputs.WorkSpaceSuffix }}
           NUM_FEEDS: ${{ inputs.NumFeeds }}
           ENVIRONMENT: ${{ inputs.Environment }}
+          CURRENT_BRANCH: ${{ steps.extract_current_branch.outputs.branch }}
         

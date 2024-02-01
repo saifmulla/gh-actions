@@ -1,0 +1,99 @@
+name: ReUse Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on:
+    workflow_call:
+        inputs:
+            LogLevel:
+                description: 'Log level'
+                required: false
+                default: 'INFO'
+                type: string
+            WorkSpaceSuffix:
+                description: 'AWS Workspace Suffix'
+                required: false
+                type: string
+            NumFeeds:
+                description: 'Number of feeds to run'
+                type: string
+                default: '1'
+            DisableTeardown:
+                description: 'Disable teardown'
+                required: false
+                type: boolean
+                default: false
+            Environment:
+                description: 'Environment to run tests against'
+                required: true
+                default: testing
+                type: string
+    workflow_dispatch:
+        inputs:
+            LogLevel:
+                description: 'Log level'
+                required: false
+                default: 'INFO'
+                type: choice
+                options:
+                - INFO
+                - WARNING
+                - DEBUG
+            WorkSpaceSuffix:
+                description: 'AWS Workspace Suffix'
+                required: false
+                type: string
+            NumFeeds:
+                description: 'Number of feeds to run'
+                type: string
+                default: '1'
+            DisableTeardown:
+                description: 'Disable teardown'
+                required: false
+                type: boolean
+                default: false
+            Environment:
+                description: 'Environment to run tests against'
+                required: true
+                default: testing
+                type: choice
+                options:
+                - staging
+                - testing 
+    push:
+        branches: 
+            - reusable-wf
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Extract current branch
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_current_branch
+
+      - name: Dispatch Context
+        run: |
+            echo "Log Level: $LOG_LEVEL"
+            echo "DISABLE_TEARDOWN: $DISABLE_TEARDOWN"
+            echo "Environment: $ENVIRONMENT"
+            echo "WORKSPACE_SUFFIX: ${WORKSPACE_SUFFIX}"
+            echo "NUM_FEEDS: ${NUM_FEEDS}"
+            echo "Current branch: ${CURRENT_BRANCH}"
+        env: 
+          LOG_LEVEL: ${{ inputs.LogLevel }}
+          DISABLE_TEARDOWN: ${{ inputs.DisableTeardown }}
+          WORKSPACE_SUFFIX: ${{ inputs.WorkSpaceSuffix }}
+          NUM_FEEDS: ${{ inputs.NumFeeds }}
+          ENVIRONMENT: ${{ inputs.Environment }}
+          CURRENT_BRANCH: ${{ steps.extract_current_branch.outputs.branch }}
+        
