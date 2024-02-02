@@ -3,7 +3,7 @@ name: Run Tests and Coverage
 on: [push, workflow_dispatch]
 
 env:
-  env_var: ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}
+  env_var: ${{ vars.ENV_CONTEXT_VAR }}
 
 jobs:
   build-python:
@@ -25,6 +25,8 @@ jobs:
         run: pytest --cov api/
       - name: Display Variables
         run: |
-          echo "variable ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}"
-          echo "Secret ${{ secrets.CODECOV_TEST_SECRET_TOKEN }}"
-          echo "env vars ${{ env.env_var }}"
+          echo "variable $CODECOV_TOKEN"
+          echo "Secret $CODECOV_SECRET"
+        env:
+          CODECOV_TOKEN: ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}
+          CODECOV_SECRET: ${{ secrets.CODECOV_TEST_SECRET_TOKEN }}
