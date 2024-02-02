@@ -1,6 +1,6 @@
 name: Run Tests and Coverage
 
-on: [push, workflow_dispatch]
+on: [push]
 
 env:
   env_var: ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}
