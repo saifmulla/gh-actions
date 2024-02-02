@@ -1,6 +1,6 @@
 name: Run Tests and Coverage
 
-on: [push]
+on: [push, workflow_dispatch]
 
 jobs:
   build-python:
@@ -24,4 +24,3 @@ jobs:
         run: |
           echo "variable ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}"
           echo "Secret ${{ secrets.CODECOV_TEST_SECRET_TOKEN }}"
-          echo "Secret GHTOKEN ${{ secrets.GITHUB_TOKEN }}"
