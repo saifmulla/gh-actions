@@ -26,8 +26,8 @@ jobs:
         run: pytest --cov api/
       - name: Display Variables
         run: |
-          echo "variable ${CODECOV_TOKEN}"
-          echo "Secret ${CODECOV_SECRET}"
+          echo "variable ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}"
+          echo "Secret ${{ secrets.CODECOV_SECRET_TOKEN }}"
           echo "env var ${FROM_ENV} ${env_var}"
           echo "local var ${{ env.local_var }}"
           echo "local var $LOCAL"
