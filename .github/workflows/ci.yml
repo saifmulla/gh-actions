@@ -33,7 +33,6 @@ jobs:
           echo "variable ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}"
           echo "Secret ${{ secrets.CODECOV_TEST_SECRET_TOKEN }}"
           echo "env var ${FROM_ENV} ${env_var}"
-          echo "local var ${{ env.local_var }}"
           echo "local var $LOCAL"
         env:
           CODECOV_TOKEN: ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}
