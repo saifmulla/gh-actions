@@ -2,11 +2,11 @@ name: Run Tests and Coverage
 
 on: [push]
 
-env:
-  env_var: ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}
-
 jobs:
   build-python:
+    env:
+      env_var: ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}
+      local_var: 'LOOK HERE'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,7 +28,10 @@ jobs:
           echo "variable ${CODECOV_TOKEN}"
           echo "Secret ${CODECOV_SECRET}"
           echo "env var ${FROM_ENV}"
+          echo "local var ${{ env.local_var }}"
+          echo "local var $LOCAL"
         env:
           CODECOV_TOKEN: ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}
           CODECOV_SECRET: ${{ secrets.CODECOV_TEST_SECRET_TOKEN }}
           FROM_ENV: ${{ env.env_var }}
+          LOCAL: ${{ env.local_var }}
