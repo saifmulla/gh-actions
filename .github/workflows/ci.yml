@@ -23,11 +23,15 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           pip install -r api/requirements.txt
       - name: Execute Tests
-        run: pytest --cov api/
+        run: |
+          pytest --cov api/
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          ./codecov -t ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}
       - name: Display Variables
         run: |
           echo "variable ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}"
-          echo "Secret ${{ secrets.CODECOV_SECRET_TOKEN }}"
+          echo "Secret ${{ secrets.CODECOV_TEST_SECRET_TOKEN }}"
           echo "env var ${FROM_ENV} ${env_var}"
           echo "local var ${{ env.local_var }}"
           echo "local var $LOCAL"
