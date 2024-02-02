@@ -23,6 +23,6 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           pip install -r api/requirements.txt
       - name: Run tests and collect coverage
-        run: pytest --cov api.calculator --cov-report=xml
+        run: pytest --cov
       - name: Upload coverage reports to CodeCov using GitHub Action
         uses: codecov/codecov-action@v3
