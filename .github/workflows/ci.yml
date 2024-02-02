@@ -1,11 +1,12 @@
 name: Run Tests and Coverage
+env:
+  env_var: '${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}-TYKONDO'
 
 on: [push]
 
 jobs:
   build-python:
     env:
-      env_var: ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}
       local_var: 'LOOK HERE'
     runs-on: ubuntu-latest
     steps:
@@ -27,7 +28,7 @@ jobs:
         run: |
           echo "variable ${CODECOV_TOKEN}"
           echo "Secret ${CODECOV_SECRET}"
-          echo "env var ${FROM_ENV}"
+          echo "env var ${FROM_ENV} ${env_var}"
           echo "local var ${{ env.local_var }}"
           echo "local var $LOCAL"
         env:
