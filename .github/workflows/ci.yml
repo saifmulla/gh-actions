@@ -22,7 +22,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip setuptools wheel
           pip install -r api/requirements.txt
-      - name: Run tests and collect coverage
-        run: pytest --cov api.calculator --cov-report=xml
+      - name: Run tests and collect coverage for calculator
+        run: pytest --cov api.calculator --cov-report=xml:calculator-coverage.xml
+      - name: Run tests and collect coverage for Smiles
+        run: pytest --cov api.smiles --cov-report=xml:smiles-coverage.xml
       - name: Upload coverage reports to CodeCov using GitHub Action
         uses: codecov/codecov-action@v3
