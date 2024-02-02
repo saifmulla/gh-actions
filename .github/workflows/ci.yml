@@ -2,7 +2,7 @@ name: Run Tests and Coverage
 env:
   env_var: '${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}-TYKONDO'
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build-python:
