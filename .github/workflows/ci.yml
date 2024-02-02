@@ -22,20 +22,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip setuptools wheel
           pip install -r api/requirements.txt
-      - name: Execute Tests
-        run: |
-          pytest --cov api/
-          curl -Os https://uploader.codecov.io/latest/linux/codecov
-          chmod +x codecov
-          ./codecov -t ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}
-      - name: Display Variables
-        run: |
-          echo "variable ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}"
-          echo "Secret ${{ secrets.CODECOV_TEST_SECRET_TOKEN }}"
-          echo "env var ${FROM_ENV} ${env_var}"
-          echo "local var $LOCAL"
-        env:
-          CODECOV_TOKEN: ${{ vars.CODECOV_TEST_VARIABLE_TOKEN }}
-          CODECOV_SECRET: ${{ secrets.CODECOV_TEST_SECRET_TOKEN }}
-          FROM_ENV: ${{ env.env_var }}
-          LOCAL: ${{ env.local_var }}
+      - name: Run tests and collect coverage
+        run: pytest --cov api.calculator --cov-report=xml
+      - name: Upload coverage reports to CodeCov using GitHub Action
+        uses: codecov/codecov-action@v3
