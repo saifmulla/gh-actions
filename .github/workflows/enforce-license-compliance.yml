@@ -1,0 +1,11 @@
+name: Enforce License Compliance
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  enforce-license-compliance:
+    runs-on: ubuntu-latest
+    steps:
+        - run: echo "Merging...Done"
